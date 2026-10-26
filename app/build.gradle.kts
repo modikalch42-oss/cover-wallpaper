@@ -9,10 +9,10 @@ android {
 
     defaultConfig {
         applicationId = "dev.modi.coverwallpaper"
-        minSdk = 27
+        minSdk = 28
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "2.0"
     }
 
     // Fixed key so new builds install over the old one (personal app, private repo)
@@ -42,4 +42,15 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    lint {
+        disable += "UnsafeOptInUsageError"
+    }
+}
+
+dependencies {
+    val media3 = "1.4.1"
+    implementation("androidx.media3:media3-exoplayer:$media3")
+    implementation("androidx.media3:media3-exoplayer-hls:$media3")
+    implementation("androidx.media3:media3-datasource:$media3")
+    implementation("androidx.media3:media3-database:$media3")
 }
