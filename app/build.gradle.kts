@@ -15,10 +15,23 @@ android {
         versionName = "1.0"
     }
 
+    // Fixed key so new builds install over the old one (personal app, private repo)
+    signingConfigs {
+        create("cover") {
+            storeFile = file("cover.keystore")
+            storePassword = "coverwall"
+            keyAlias = "cover"
+            keyPassword = "coverwall"
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("cover")
+        }
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("cover")
         }
     }
 

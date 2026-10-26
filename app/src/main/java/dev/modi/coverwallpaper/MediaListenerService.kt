@@ -30,6 +30,13 @@ class MediaListenerService : NotificationListenerService() {
     private var lastArtKey: String? = null
     private var lastArt: Bitmap? = null
 
+    // Full-resolution cover from Apple's catalogue
+    private var hiResRequested: String? = null
+    private var hiResFor: String? = null
+    private var hiResArt: Bitmap? = null
+    private var hiResAlbum: String? = null
+    private var hiResArtist: String? = null
+
     private val sessionsListener =
         MediaSessionManager.OnActiveSessionsChangedListener { list -> pick(list) }
 
@@ -92,7 +99,18 @@ class MediaListenerService : NotificationListenerService() {
             ?: md?.getBitmap(MediaMetadata.METADATA_KEY_ART)
             ?: md?.getBitmap(MediaMetadata.METADATA_KEY_DISPLAY_ICON)
 
-        val key = "$title|$artist|${md?.getString(MediaMetadata.METADATA_KEY_ALBUM)}"
+        val album = md?.getString(MediaMetadata.METADATA_KEY_ALBUM)
+        val key = "$title|$artist|$album"
+
+        if (title != null && key != hiResRequested) {
+            hiResRequested = key
+            fetchHiRes(key, artist, album, title)
+        }
+        // Once the full-resolution cover has arrived for this track, always use it.
+        if (key == hiResFor && hiResArt != null) {
+            NowPlaying.update(NowPlaying.Track(hiResArt, title, artist, playing))
+            return
+        }
 
         when {
             bmp != null -> {
@@ -108,6 +126,23 @@ class MediaListenerService : NotificationListenerService() {
                     ?: md?.getString(MediaMetadata.METADATA_KEY_ART_URI)
                 NowPlaying.update(NowPlaying.Track(lastArt, title, artist, playing))
                 if (uri != null) loadUri(uri, key, title, artist, playing)
+            }
+        }
+    }
+
+    private fun fetchHiRes(key: String, artist: String?, album: String?, title: String?) {
+        // Same album as the cover we already have in full resolution? Reuse it.
+        if (album != null && album == hiResAlbum && artist == hiResArtist && hiResArt != null) {
+            hiResFor = key
+            return
+        }
+        io.execute {
+            val bmp = HiResArt.fetch(artist, album, title) ?: return@execute
+            main.post {
+                if (hiResRequested != key) return@post   // song changed while downloading
+                hiResFor = key; hiResArt = bmp
+                hiResAlbum = album; hiResArtist = artist
+                push()
             }
         }
     }
