@@ -1,0 +1,12 @@
+58555-3bb9-421c-a723-ef66635dcdab-139171365-PreviewImage_preview_image_nonvideo_sdr-Time1668634899071.png/632x632bb-60.jpg 632w" type="image/jpeg"> <img alt="Midnights" class="artwork-component__contents artwork-component__image svelte-1fla0gl" loading="lazy" src="/assets/artwork/1x1.gif" role="presentation" decoding="async" width="316" height="316" fetchpriority="auto" style="opacity: 1;"></picture> </div> <div data-testid="video-artwork" class="video-artwork__container svelte-r6ug84"><amp-ambient-video class="editorial-video svelte-k5wvu3 editorial-video--cover" src="https://mvod.itunes.apple.com/itunes-assets/HLSMusic112/v4/1f/76/00/1f7600ac-161b-fbce-1b5d-6c45c079090e/P517392561_default.m3u8" playing="false" data-playing="false" data-testid="ambi
+=====
+locationPosition":1,"name":"Preview","locationType":"AlbumDetail","kind":"album"},"custom":{}}},"shuffleButton":null,"videoArtwork":{"dictionary":{"motionDetailSquare":{"previewFrame":{"bgColor":"03091e","hasP3":false,"height":3840,"textColor1":"ceaca8","textColor2":"db8e74","textColor3":"a58b8c","textColor4":"b07463","url":"https://is1-ssl.mzstatic.com/image/thumb/Video112/v4/b6/28/23/b6282315-240d-78f0-0f7d-bec9f71be33e/Job99958555-3bb9-421c-a723-ef66635dcdab-139171365-PreviewImage_preview_image_nonvideo_sdr-Time1668634899071.png/{w}x{h}bb.{f}","width":3840},"video":"https://mvod.itunes.apple.com/itunes-assets/HLSMusic112/v4/1f/76/00/1f7600ac-161b-fbce-1b5d-6c45c079090e/P517392561_default.m3u8"}},"cropStyle":"cc"},"tallVideoArtwork":{"dictionary":{
+=====
+s-assets/HLSMusic112/v4/1f/76/00/1f7600ac-161b-fbce-1b5d-6c45c079090e/P517392561_default.m3u8"}},"cropStyle":"cc"},"tallVideoArtwork":{"dictionary":{"motionDetailTall":{"previewFrame":{"bgColor":"04081e","hasP3":false,"height":2732,"textColor1":"d6bab5","textColor2":"d98975","textColor3":"ac9697","textColor4":"ae6f64","url":"https://is1-ssl.mzstatic.com/image/thumb/Video112/v4/f7/6f/77/f76f779a-bf8d-f914-9f51-75278085e85c/Job4faebb75-92ab-4f31-beba-15fc1f869272-139171474-PreviewImage_preview_image_nonvideo_sdr-Time1668634796883.png/{w}x{h}bb.{f}","width":2048},"video":"https://mvod.itunes.apple.com/itunes-assets/HLSMusic122/v4/da/c0/33/dac033fe-0f61-a986-218c-0b5f81fd5246/P517391562_default.m3u8"}},"cropStyle":"bb"},"trackCount":14,"siriBannerConfigu
+=====
+editorialVideo: 0
+motionDetailTall: 1
+motionTallVideo3x4: 0
+motionDetailSquare: 1
+motionSquareVideo1x1: 0
+serialized-server-data: 1
