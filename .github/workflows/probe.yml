@@ -1,0 +1,37 @@
+name: Probe
+on:
+  push:
+    paths: ['.github/workflows/probe.yml']
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch pages
+        run: |
+          mkdir out && cd out
+          UA='Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Mobile Safari/537.36'
+          curl -sL -A "$UA" "https://itunes.apple.com/search?term=taylor+swift+midnights&entity=album&limit=3&country=GB" > search.json
+          URL=$(python3 -c "import json;print(json.load(open('search.json'))['results'][0]['collectionViewUrl'])")
+          echo "$URL" > url.txt
+          curl -sL -A "$UA" "$URL" > page.html
+          wc -c page.html > size.txt
+          grep -o 'm3u8' page.html | wc -l >> size.txt
+          python3 - <<'PY'
+          import re
+          h=open('page.html',encoding='utf-8',errors='ignore').read()
+          out=[]
+          for m in re.finditer(r'm3u8', h):
+              s=max(0,m.start()-700); out.append(h[s:m.start()+60]); out.append('\n=====\n')
+              if len(out)>16: break
+          for k in ['editorialVideo','motionDetailTall','motionTallVideo3x4','motionDetailSquare','motionSquareVideo1x1','serialized-server-data']:
+              out.append(f'{k}: {h.count(k)}\n')
+          open('snips.txt','w').write(''.join(out))
+          PY
+      - name: Save
+        run: |
+          cd out
+          git init -q -b probe && git add search.json url.txt size.txt snips.txt
+          git -c user.name=probe -c user.email=probe@x commit -qm probe
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" probe
